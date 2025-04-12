@@ -1,0 +1,19 @@
+{
+    "education":[
+        {
+            "title": "Nov 2023 - May 2025",
+            "cardTitle": "B.Tech, Artificial Intelligence and Data Science",
+            "cardSubtitle":"Shri Vishnu Engineering College for Women, Bhimavaram",
+            "cardDetailedText": "CGPA - 9.54",
+            "icon" : {
+                "src": "images/education/vishnuclg.png"
+            }
+        },
+        {
+            "title": "2023",
+            "cardTitle": "Intermediate",
+            "cardSubtitle":"Sri Chaitanya Junior college, Amalapuram",
+            "cardDetailedText": "Marks - 98%"
+        }
+    ]
+}

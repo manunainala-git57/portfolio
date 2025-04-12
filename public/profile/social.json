@@ -1,0 +1,16 @@
+{
+    "social": [
+        {
+            "network" : "linkedin",
+            "href": "https://www.linkedin.com/in/manu-nainala-0767ba2b9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        },
+        {
+            "network" : "github",
+            "href": "https://github.com/manunainala-git57"
+        },
+        {
+            "network" : "email",
+            "href": "mailto:manunainala@gmail.com"
+        }
+    ]
+}

@@ -1,0 +1,151 @@
+{
+    "projects" : [
+        {
+            "image" : "images/projects/portfolio.png",
+            "title": "Dev Portfolio",
+            "bodyText": "- Developer Portfolio Website made in React\n -  Fully customisable and dynamic, easily change data and images.\n - Dark Mode Support",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/mayankagarwal09/dev-portfolio"
+                }
+            ],
+            "tags" : [
+                "React",
+                "Portfolio",
+                "JavaScript"
+            ]
+        },
+        {
+            "image" : "images/projects/chatapp.png",
+            "title": "ChatterBox -  Chat App",
+            "bodyText": "- A Chat application  made using React , Node.js where a person can chat with community of people who are using this application\n - Secure login with full **authentication**.\n - Instant messaging with **real-time notifications**",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/Chat-App-MERN.git"
+                }
+            ],
+            "tags" : [
+                "React",
+                "Node.js",
+                "Material UI",
+                "Express.js",
+                "MongoDB",
+                "Context API",
+                "Socket io"
+            ]
+        },
+        {
+            "image" : "images/projects/travel-toursim-chatbot.png",
+            "title": "Travel and Toursim ChatBot",
+            "bodyText": "- Assisted users with vacation planning through smart chat interaction.\n - Provided destination suggestions based on user preferences or through the dataset.\n - Enhanced user experience by simplifying travel queries.",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/travel-toursim-chatbot.git"
+                }
+            ],
+            "tags" : [
+                "Streamlit",
+                "Python",
+                "Gemini API"
+            ]
+        },
+        {
+            "title": "Movie Recommender System",
+            "bodyText": "- A Movie Recommender System built using **Flask** for the backend and **React** for the frontend.\n - Utilizes a machine learning model trained on Data Set\n - Uses pandas, numpy, and scikit-learn for data processing and ML algorithms",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/Movie-Recommender-System.git"
+                }
+            ],
+            "tags" : [
+                "Python",
+                "React",
+                "Pandas",
+                "numpy",
+                "Scikitlearn"
+            ]
+        },
+        {
+            "title": "AI Calculator Application",
+            "bodyText": "- The AI-Powered Calculator is a smart and interactive application that allows users to perform both basic and complex mathematical calculations using hand-drawn inputs.\n - utilizes Google's **Gemini API** to recognize drawn patterns.",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/AI-Calculator.git"
+                }
+            ],
+            "tags" : [
+                "React",
+                "Python",
+                "Fast Api"
+            ]
+        },
+
+        {
+            "title": "Quiz App",
+            "bodyText": "- Quiz Application which was build with React.\n - uses an API that contains some basic kind of quiz questions.\n - user can select options and score will be allocated for them",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/Quiz-app.git"
+                }
+            ],
+            "tags" : [
+                "React",
+                "JavaScript",
+                "API"
+            ]
+        },
+        {
+            "image" : "images/projects/shapematchergame.png",
+            "title": "Shape matcher game",
+            "bodyText": "- Shape Matcher is an engaging and fun game where players drag and drop falling shapes into their respective boxes.\n - The game challenges players to think quickly and accurately to match shapes, score points, and avoid penalties.",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/shape-matcher-game.git"
+                }
+            ],
+            "tags" : [
+                "HTML",
+                "CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "title": "Currency Converter",
+            "bodyText": "- An Application which was build by using JavaScript.\n - That eventually converts currency into diiferent country's currency seamlessly",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/currency-converter_API.git"
+                }
+            ],
+            "tags" : [
+                "HTML",
+                "CSS",
+                "JavaScript"
+            ]
+        },
+        
+        {
+            "image" : "images/projects/youtubeclone.png",
+            "title": "Youtube - Clone(Static)",
+            "bodyText": "- A static Web page that Youtube Home page",
+            "links": [
+                {
+                    "text": "GitHub",
+                    "href": "https://github.com/manunainala-git57/youtube_clone.git"
+                }
+            ],
+            "tags" : [
+                "HTML",
+                "CSS"
+            ]
+        }
+    ]
+}
