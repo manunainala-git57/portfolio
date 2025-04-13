@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Chrono } from 'react-chrono';
 import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
@@ -7,39 +6,22 @@ import { ThemeContext } from 'styled-components';
 import endpoints from '../constants/endpoints';
 import Header from './Header';
 import FallbackSpinner from './FallbackSpinner';
+import {
+  VerticalTimeline,
+  VerticalTimelineElement
+} from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
 import '../css/education.css';
 
-function Education(props) {
+function Education({ header }) {
   const theme = useContext(ThemeContext);
-  const { header } = props;
   const [data, setData] = useState(null);
-  const [width, setWidth] = useState('50vw');
-  const [height, setHeight] = useState('400px'); // Fixed height for Chrono
-  const [mode, setMode] = useState('VERTICAL_ALTERNATING');
 
   useEffect(() => {
-    fetch(endpoints.education, {
-      method: 'GET',
-    })
+    fetch(endpoints.education)
       .then((res) => res.json())
       .then((res) => setData(res))
-      .catch((err) => err);
-
-    // Responsiveness adjustments based on screen size
-    if (window?.innerWidth < 576) {
-      setMode('VERTICAL');
-      setWidth('90vw');
-      setHeight('600px'); // Taller for smaller screens
-    } else if (window?.innerWidth >= 576 && window?.innerWidth < 768) {
-      setWidth('90vw');
-      setHeight('500px'); // Medium height for tablet screens
-    } else if (window?.innerWidth >= 768 && window?.innerWidth < 1024) {
-      setWidth('75vw');  // Laptop / small desktop
-      setHeight('500px'); // Medium height for laptop screens
-    } else {
-      setWidth('60vw');  // Large screen / desktop
-      setHeight('600px'); // Tall height for larger screens
-    }
+      .catch((err) => console.error('Failed to fetch education data:', err));
   }, []);
 
   return (
@@ -47,37 +29,53 @@ function Education(props) {
       <Header title={header} />
       {data ? (
         <Fade>
-          <div style={{ width }} className="section-content-container">
+          <div className="section-content-container">
             <Container>
-              <div style={{ width, height }} className="chrono-container">
-                <Chrono
-                  useReadMore={false}
-                  items={data.education}
-                  cardHeight={100}
-                  mode={mode}
-                  theme={{
-                    primary: theme.accentColor,
-                    secondary: theme.accentColor,
-                    cardBgColor: theme.chronoTheme.cardBgColor,
-                    cardForeColor: theme.chronoTheme.cardForeColor,
-                    titleColor: theme.chronoTheme.titleColor,
-                  }}
-                >
-                  <div className="chrono-icons">
-                    {data.education.map((education) => (education.icon ? (
-                      <img
-                        key={education.icon.src}
-                        src={education.icon.src}
-                        alt={education.icon.alt}
-                      />
-                    ) : null))}
-                  </div>
-                </Chrono>
-              </div>
+              <VerticalTimeline layout="1-column">
+                {data.education.map((edu, index) => (
+                  <VerticalTimelineElement
+                    key={index}
+                    date={edu.title}
+                    icon={
+                      edu.icon?.src ? (
+                        <img
+                          src={edu.icon.src}
+                          alt={edu.cardTitle}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            borderRadius: '50%',
+                          }}
+                        />
+                      ) : null
+                    }
+                    iconStyle={{
+                      background: theme.accentColor,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    contentStyle={{
+                      background: theme.chronoTheme?.cardBgColor || '#fff',
+                      color: theme.chronoTheme?.cardForeColor || '#333',
+                    }}
+                    contentArrowStyle={{
+                      borderRight: `7px solid ${theme.chronoTheme?.cardBgColor || '#fff'}`,
+                    }}
+                  >
+                    <h3 className="vertical-timeline-element-title">{edu.cardTitle}</h3>
+                    <h4 className="vertical-timeline-element-subtitle">{edu.cardSubtitle}</h4>
+                    <p>{edu.cardDetailedText}</p>
+                  </VerticalTimelineElement>
+                ))}
+              </VerticalTimeline>
             </Container>
           </div>
         </Fade>
-      ) : <FallbackSpinner />}
+      ) : (
+        <FallbackSpinner />
+      )}
     </>
   );
 }
