@@ -38,7 +38,6 @@ function Home() {
       <div style={styles.mainContainer}>
                 <h1 style={styles.nameStyle}>{data?.name}</h1>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <h2 style={styles.inlineChild}>I&apos;m&nbsp;</h2>
           <h2 style={styles.inlineChild}>
             <Typewriter
               options={{
