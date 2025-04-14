@@ -15,10 +15,13 @@
   }
   
 
-  /* In NavBar.css */
-.navbar-custom {
-    height: 50px; /* Adjust this value as needed */
-  }
+  .navbar-custom {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    z-index: 9999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
   
   .navbar-custom .navbar-brand {
     padding: 0.25rem 0; /* Adjust padding to fit within the smaller height */
