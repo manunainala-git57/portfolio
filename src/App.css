@@ -10,11 +10,13 @@ html {
 }
 
 .section {
-  padding: 60px 20px;        
+  padding: 40px 20px;
 }
 
+
 .home-section {
-  padding-top: 100px;        
+  padding-top: 150px;  
+  padding-bottom: 200px;      
 }
 
 @media (max-width: 768px) {
