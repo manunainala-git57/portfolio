@@ -21,9 +21,7 @@ function MainApp() {
       <NavBarWithRouter />
       <main className="main">
         <Suspense fallback={<FallbackSpinner />}>
-          <section id="home" className="section home-section">
-            <Home />
-          </section>
+          
           {data?.sections?.map((route) => {
             if (!route.component || !route.path) return null;
 
