@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components'; // if you’re using it
+import { ThemeContext } from 'styled-components'; 
 import '../App.css';
 
 function Header({ title }) {

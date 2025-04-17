@@ -1,52 +1,46 @@
+// MainApp.jsx
 import React, { useState, useEffect, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
 import FallbackSpinner from './components/FallbackSpinner';
 import NavBarWithRouter from './components/NavBar';
 import Home from './components/Home';
 import endpoints from './constants/endpoints';
+import './App.css'; // Make sure this exists and includes new styles
 
 function MainApp() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(endpoints.routes, {
-      method: 'GET',
-    })
+    fetch(endpoints.routes)
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);  // Log to confirm the routes are correctly fetched
-        setData(res);
-      })
-      .catch((err) => err);
+      .then((res) => setData(res))
+      .catch((err) => console.error('Error fetching routes:', err));
   }, []);
 
   return (
     <div className="MainApp">
       <NavBarWithRouter />
       <main className="main">
-        {/* Suspense should wrap the Routes, not be inside it */}
         <Suspense fallback={<FallbackSpinner />}>
-          <Routes>
-            {/* Home Route */}
-            <Route path="/" element={<Home />} />
+          <section id="home" className="section home-section">
+            <Home />
+          </section>
+          {data?.sections?.map((route) => {
+            if (!route.component || !route.path) return null;
 
-            {/* Dynamic Routes */}
-            {data &&
-              data.sections.map((route) => {
-                console.log(`./components/${route.component}.jsx`);
-                const SectionComponent = React.lazy(() =>
-                  import(`./components/${route.component}.jsx`)
-                );
-                
-                return (
-                  <Route
-                    key={route.headerTitle}
-                    path={route.path}
-                    element={<SectionComponent header={route.headerTitle} />}
-                  />
-                );
-              })}
-          </Routes>
+            const SectionComponent = React.lazy(() =>
+              import(`./components/${route.component}.jsx`)
+            );
+
+            return (
+              <section
+                id={route.path.replace('/', '')}
+                className="section"
+                key={route.headerTitle}
+              >
+                <SectionComponent header={route.headerTitle} />
+              </section>
+            );
+          })}
         </Suspense>
       </main>
     </div>

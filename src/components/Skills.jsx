@@ -1,3 +1,4 @@
+// src/components/Skills.jsx
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import PropTypes from 'prop-types';
@@ -6,6 +7,7 @@ import { Container } from 'react-bootstrap';
 import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
+import './../App.css'; // make sure your .section styles live here
 
 const styles = {
   iconStyle: {
@@ -19,39 +21,39 @@ const styles = {
   },
 };
 
-function Skills(props) {
-  const { header } = props;
+function Skills({ header }) {
   const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(endpoints.skills)
+      .then((res) => res.json())
+      .then(setData)
+      .catch(console.error);
+  }, []);
 
   const renderSkillsIntro = (intro) => (
     <h4 style={styles.introTextContainer}>
-      <ReactMarkdown children={intro} />
+      <ReactMarkdown>{intro}</ReactMarkdown>
     </h4>
   );
 
-  useEffect(() => {
-    fetch(endpoints.skills, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((err) => err);
-  }, []);
-
   return (
-    <>
+    <section id="skills" className="section">
       <Header title={header} />
       {data ? (
         <Fade>
           <div className="section-content-container">
             <Container>
               {renderSkillsIntro(data.intro)}
-              {data.skills?.map((rows) => (
-                <div key={rows.title}>
+              {data.skills.map((group) => (
+                <div key={group.title}>
                   <br />
-                  <h3>{rows.title}</h3>
-                  {rows.items.map((item) => (
-                    <div key={item.title} style={{ display: 'inline-block' }}>
+                  <h3>{group.title}</h3>
+                  {group.items.map((item) => (
+                    <div
+                      key={item.title}
+                      style={{ display: 'inline-block', textAlign: 'center' }}
+                    >
                       <img
                         style={styles.iconStyle}
                         src={item.icon}
@@ -65,8 +67,10 @@ function Skills(props) {
             </Container>
           </div>
         </Fade>
-      ) : <FallbackSpinner /> }
-    </>
+      ) : (
+        <FallbackSpinner />
+      )}
+    </section>
   );
 }
 

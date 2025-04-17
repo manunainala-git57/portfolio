@@ -5,12 +5,47 @@
   text-align: center;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+.section {
+  padding: 60px 20px;        
+}
+
+.home-section {
+  padding-top: 100px;        
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 15px;      
+  }
+  .home-section {
+    padding-top: 80px;       
+  }
+}
+
+
+
+
+.section-content-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
+
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -52,7 +87,7 @@
   color: var(--text-color, #333); /* Use a CSS variable for light/dark theming */
 }
 
-/* App.css or your main stylesheet */
+
 .row {
   display: flex;
   flex-wrap: wrap;

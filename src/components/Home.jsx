@@ -4,6 +4,8 @@ import { Fade } from 'react-awesome-reveal';
 import endpoints from '../constants/endpoints';
 import Social from './Social';
 import FallbackSpinner from './FallbackSpinner';
+import './../App.css'; // make sure your .section styles live here
+
 
 const styles = {
   nameStyle: {
@@ -25,35 +27,36 @@ function Home() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(endpoints.home, {
-      method: 'GET',
-    })
+    fetch(endpoints.home)
       .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((err) => err);
+      .then(setData)
+      .catch(console.error);
   }, []);
 
-  return data ? (
-    <Fade direction="up" cascade triggerOnce>
-      <div style={styles.mainContainer}>
-                <h1 style={styles.nameStyle}>{data?.name}</h1>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <h2 style={styles.inlineChild}>
-            <Typewriter
-              options={{
-                loop: true,
-                autoStart: true,
-                strings: data?.roles,
-              }}
-            />
-          </h2>
-        </div>
-
-        <Social />
-      </div>
-    </Fade>
-  ) : (
-    <FallbackSpinner />
+  return (
+    <section id="home" className="section home-section">
+      {data ? (
+        <Fade direction="up" cascade triggerOnce>
+          <div style={styles.mainContainer}>
+            <h1 style={styles.nameStyle}>{data.name}</h1>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <h2 style={styles.inlineChild}>
+                <Typewriter
+                  options={{
+                    loop: true,
+                    autoStart: true,
+                    strings: data.roles,
+                  }}
+                />
+              </h2>
+            </div>
+            <Social />
+          </div>
+        </Fade>
+      ) : (
+        <FallbackSpinner />
+      )}
+    </section>
   );
 }
 

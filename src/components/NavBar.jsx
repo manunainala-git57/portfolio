@@ -1,6 +1,5 @@
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import React, { useEffect, useState, useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
 import styled, { ThemeContext } from 'styled-components';
 import endpoints from '../constants/endpoints';
 import ThemeToggler from './ThemeToggler';
@@ -13,26 +12,21 @@ const styles = {
   },
 };
 
-const ExternalNavLink = styled.a`
+const LinkSpan = styled.span`
   color: ${(props) => props.theme.navbarTheme.linkColor};
+  cursor: pointer;
+  padding: 0 0.5rem;
   &:hover {
     color: ${(props) => props.theme.navbarTheme.linkHoverColor};
-  }
-  &::after {
-    background-color: ${(props) => props.theme.accentColor};
   }
 `;
 
-const InternalNavLink = styled(NavLink)`
+const LinkAnchor = styled.a`
   color: ${(props) => props.theme.navbarTheme.linkColor};
+  cursor: pointer;
+  padding: 0 0.5rem;
   &:hover {
     color: ${(props) => props.theme.navbarTheme.linkHoverColor};
-  }
-  &::after {
-    background-color: ${(props) => props.theme.accentColor};
-  }
-  &.navbar__link--active {
-    color: ${(props) => props.theme.navbarTheme.linkActiveColor};
   }
 `;
 
@@ -40,16 +34,24 @@ const NavBar = () => {
   const theme = useContext(ThemeContext);
   const [data, setData] = useState(null);
   const [expanded, setExpanded] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(endpoints.navbar, {
-      method: 'GET',
-    })
+    fetch(endpoints.navbar)
       .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((err) => err);
+      .then(setData)
+      .catch((err) => console.error('Failed to load navbar:', err));
   }, []);
+
+  const handleInternalScroll = (href) => {
+    const id = href.replace(/^\/+|^#/, '');
+    const element = document.getElementById(id);
+  
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+  
+  
 
   return (
     <Navbar
@@ -62,55 +64,62 @@ const NavBar = () => {
     >
       <Container>
         {data?.logo && (
-          <Navbar.Brand href="/">
+          <LinkSpan
+            onClick={() => {
+              handleInternalScroll(data.sections[0]?.href || '#home');
+              setExpanded(false);
+            }}
+            style={{ cursor: 'pointer' }}
+            theme={theme}
+          >
             <img
-              src={data?.logo?.source}
-              className="d-inline-block align-top"
+              src={data.logo.source}
               alt="main logo"
               style={
-                data?.logo?.height && data?.logo?.width
-                  ? { height: data?.logo?.height, width: data?.logo?.width }
+                data.logo.height && data.logo.width
+                  ? { height: data.logo.height, width: data.logo.width }
                   : styles.logoStyle
               }
             />
-          </Navbar.Brand>
+          </LinkSpan>
         )}
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => setExpanded(!expanded)}
-        />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Toggle onClick={() => setExpanded(!expanded)} />
+        <Navbar.Collapse>
           <Nav className="me-auto" />
           <Nav>
-            {data &&
-              data.sections
-                ?.filter((section) => section.title !== 'Experience') // Exclude 'Experience' section
-                .map((section, index) =>
-                  section?.type === 'link' ? (
-                    <ExternalNavLink
-                      key={section.title}
-                      href={section.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setExpanded(false)}
+            {data?.sections
+              ?.filter((section) => section.title !== 'Experience')
+              .map(({ title, href, type }) => {
+                const isInternal = href.startsWith('#') || href.startsWith('/');
+                if (isInternal) {
+                  return (
+                    <LinkSpan
+                      key={title}
+                      onClick={() => {
+                        handleInternalScroll(href);
+                        setExpanded(false);
+                      }}
                       className="navbar__link"
                       theme={theme}
                     >
-                      {section.title}
-                    </ExternalNavLink>
-                  ) : (
-                    <InternalNavLink
-                      key={section.title}
-                      onClick={() => setExpanded(false)}
-                      activeClassName="navbar__link--active"
-                      className="navbar__link"
-                      to={section.href}
-                      theme={theme}
-                    >
-                      {section.title}
-                    </InternalNavLink>
-                  )
-                )}
+                      {title}
+                    </LinkSpan>
+                  );
+                }
+                return (
+                  <LinkAnchor
+                    key={title}
+                    href={href}
+                    target={type === 'link' ? '_blank' : '_self'}
+                    rel="noopener noreferrer"
+                    onClick={() => setExpanded(false)}
+                    className="navbar__link"
+                    theme={theme}
+                  >
+                    {title}
+                  </LinkAnchor>
+                );
+              })}
           </Nav>
           <ThemeToggler onClick={() => setExpanded(false)} />
         </Navbar.Collapse>

@@ -30,6 +30,10 @@
             "href": "/projects"
         },
         {
+            "title": "Contact",
+            "href": "/contact"
+        },
+        {
             "title": "Resume",
             "href": "https://drive.google.com/file/d/1sGTSx-dOdJqFzI17PFB9yqdpZ8bcoxQv/view?usp=sharing",
             "type": "link"

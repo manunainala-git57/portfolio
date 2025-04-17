@@ -12,6 +12,8 @@ import {
 } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import '../css/education.css';
+import './../App.css'; // make sure your .section styles live here
+
 
 function Education({ header }) {
   const theme = useContext(ThemeContext);
@@ -20,12 +22,12 @@ function Education({ header }) {
   useEffect(() => {
     fetch(endpoints.education)
       .then((res) => res.json())
-      .then((res) => setData(res))
+      .then(setData)
       .catch((err) => console.error('Failed to fetch education data:', err));
   }, []);
 
   return (
-    <>
+    <section id="education" className="section">
       <Header title={header} />
       {data ? (
         <Fade>
@@ -76,7 +78,7 @@ function Education({ header }) {
       ) : (
         <FallbackSpinner />
       )}
-    </>
+    </section>
   );
 }
 

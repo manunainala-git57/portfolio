@@ -5,75 +5,42 @@ import { Fade } from 'react-awesome-reveal';
 import Header from './Header';
 import endpoints from '../constants/endpoints';
 import FallbackSpinner from './FallbackSpinner';
-
-const styles = {
-  sectionContentContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '20px',
-    gap: '40px',
-  },
-  introTextContainer: {
-    flex: '1 1 300px',
-    fontSize: '1.2em',
-    fontWeight: 500,
-    whiteSpace: 'pre-wrap',
-    textAlign: 'left',
-    minWidth: '300px',
-    maxWidth: '600px',
-  },
-  introImageContainer: {
-    flex: '1 1 300px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width:'500px',
-    height: 'auto',
-    maxWidth: '100%',
-    borderRadius: '10px',
-  },
-};
+import "../css/About.css"
 
 function About({ header }) {
   const [data, setData] = useState(null);
 
-  const parseIntro = (text) => <ReactMarkdown>{text}</ReactMarkdown>;
-
   useEffect(() => {
     fetch(endpoints.about)
       .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((err) => console.error(err));
+      .then(setData)
+      .catch(console.error);
   }, []);
 
   return (
-    <>
+    <section id="about" className="section">
       <Header title={header} />
-      <div style={styles.sectionContentContainer}>
+      <div className="about-container">
         {data ? (
-          <Fade>
-            <div style={styles.introTextContainer}>
-              {parseIntro(data.about)}
-            </div>
-            <div style={styles.introImageContainer}>
-              <img src={data?.imageSource} alt="profile" style={styles.image} />
-            </div>
-          </Fade>
+          <>
+            <Fade direction="left" triggerOnce>
+              <div className="about-text">
+                <ReactMarkdown>{data.about}</ReactMarkdown>
+              </div>
+            </Fade>
+            <Fade direction="right" triggerOnce>
+              <div className="about-image-wrapper">
+                <img src={data.imageSource} alt="profile" className="about-image" />
+              </div>
+            </Fade>
+          </>
         ) : (
           <FallbackSpinner />
         )}
       </div>
-    </>
+    </section>
   );
 }
 
-About.propTypes = {
-  header: PropTypes.string.isRequired,
-};
-
+About.propTypes = { header: PropTypes.string.isRequired };
 export default About;
