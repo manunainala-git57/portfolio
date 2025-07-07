@@ -45,20 +45,30 @@ const NavBar = () => {
   const handleInternalScroll = (href) => {
     const id = href.replace(/^\/+|^#/, '');
     const element = document.getElementById(id);
-  
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-  
-  
+
+  // Add scroll shadow effect on navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      const navbar = document.querySelector('.navbar-custom');
+      if (window.scrollY > 10) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <Navbar
       fixed="top"
       expand="md"
-      bg="dark"
-      variant="dark"
       className="navbar-custom"
       expanded={expanded}
     >
@@ -83,9 +93,14 @@ const NavBar = () => {
             />
           </LinkSpan>
         )}
-        <Navbar.Toggle onClick={() => setExpanded(!expanded)} />
-        <Navbar.Collapse>
-          <Nav className="me-auto" />
+
+        <Navbar.Toggle
+          aria-controls="navbar-nav"
+          onClick={() => setExpanded(!expanded)}
+          style={{ borderColor: theme.cardBorderColor }}
+        />
+
+        <Navbar.Collapse id="navbar-nav" className="justify-content-end">
           <Nav>
             {data?.sections
               ?.filter((section) => section.title !== 'Experience')

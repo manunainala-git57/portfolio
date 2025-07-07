@@ -19,9 +19,17 @@ export const lightTheme = {
   bsPrimaryVariant: 'light',
   bsSecondaryVariant: 'dark',
   socialIconBgColor: '#121212',
-  socialIconFgColor: "#000000", // Foreground color (icon) for light mode
+  socialIconFgColor: "#000000",
 
+  inputBackground: '#f9f9f9',
+  placeholderColor: '#888888',
+  buttonBackground: '#007bff',
+  buttonTextColor: '#ffffff',
+  textColor: '#121212',
+  subTextColor: '#444444',
+  bodyBackground: '#ffffff',
 };
+
 
 export const darkTheme = {
   background: '#121212',
@@ -42,7 +50,15 @@ export const darkTheme = {
     linkActiveColor: '#fefefe',
   },
   bsPrimaryVariant: 'dark',
-  bsSecondaryVariant: 'light',  
-  socialIconBgColor: "#333333", // Background color for icons
-  socialIconFgColor: "#ffffff", // Foreground color (icon) for dark mode
+  bsSecondaryVariant: 'light',
+  socialIconBgColor: "#333333",
+  socialIconFgColor: "#ffffff",
+
+  inputBackground: '#1e1e1e',
+  placeholderColor: '#ffffff',
+  buttonBackground: '#00aaff',
+  buttonTextColor: '#ffffff',
+  textColor: '#eeeeee',
+  subTextColor: '#bbbbbb',
+  bodyBackground: '#121212',
 };

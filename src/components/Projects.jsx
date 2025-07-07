@@ -2,13 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Button } from 'react-bootstrap';
 import { ThemeContext } from 'styled-components';
 import PropTypes from 'prop-types';
-import { Fade } from 'react-awesome-reveal';
 import Header from './Header';
 import endpoints from '../constants/endpoints';
 import ProjectCard from './projects/ProjectCard';
 import FallbackSpinner from './FallbackSpinner';
-import './../App.css'; // make sure your .section styles live here
-
+import './../App.css';
 
 const styles = {
   containerStyle: {
@@ -35,26 +33,40 @@ const Projects = ({ header }) => {
 
   return (
     <section id="projects" className="section">
-      <Header title={header} />
+      <div data-aos="fade-right" data-aos-duration="800">
+        <Header title={header} />
+      </div>
+
       {data ? (
         <div className="section-content-container">
           <Container style={styles.containerStyle}>
             <Row xs={1} sm={1} md={2} lg={3} className="g-4 d-flex">
-              {data.projects.slice(0, numberOfItems).map((project) => (
-                <Fade key={project.title}>
+              {data.projects.slice(0, numberOfItems).map((project, index) => (
+                <div
+                  key={project.title}
+                  data-aos="zoom-in"
+                  data-aos-delay={index * 100}
+                  data-aos-duration="800"
+                >
                   <ProjectCard project={project} />
-                </Fade>
+                </div>
               ))}
             </Row>
 
             {!showMore && (
-              <Button
-                style={styles.showMoreStyle}
-                variant={theme.bsSecondaryVariant}
-                onClick={() => setShowMore(true)}
+              <div
+                data-aos="fade-up"
+                data-aos-delay="600"
+                data-aos-duration="800"
               >
-                show more
-              </Button>
+                <Button
+                  style={styles.showMoreStyle}
+                  variant={theme.bsSecondaryVariant}
+                  onClick={() => setShowMore(true)}
+                >
+                  show more
+                </Button>
+              </div>
             )}
           </Container>
         </div>

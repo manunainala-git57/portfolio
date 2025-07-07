@@ -52,4 +52,11 @@
     color: #00ff8c;
     font-weight: bold;
   }
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #ffffff; 
+  opacity: 0.8;
+}
+
   

@@ -14,10 +14,11 @@ const styles = {
   },
   cardStyle: {
     borderRadius: 10,
-    height: '450px', // Set a fixed max height
+    height: '450px',
     display: 'flex',
     flexDirection: 'column',
-    overflowY: 'auto', // Make the card scrollable
+    overflowY: 'auto',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease', // smooth transition
   },
   cardTitleStyle: {
     fontSize: 24,
@@ -37,45 +38,55 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
-  scrollbarStyle: {
-    // Custom scrollbar styles
-    scrollbarWidth: 'thin', // For Firefox
-    scrollbarColor: '#888 #f1f1f1', // For Firefox (thumb and track color)
-  },
 };
 
-// Add global scrollbar styles in CSS (for better cross-browser support)
 const globalStyles = `
   .project-card::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 8px;
   }
 
   .project-card::-webkit-scrollbar-thumb {
-    background-color: #888; /* Scrollbar thumb color */
+    background-color: #888;
     border-radius: 10px;
   }
 
   .project-card::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Scrollbar track color */
+    background-color: #f1f1f1;
   }
 
   .project-card::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Scrollbar thumb hover color */
+    background-color: #555;
+  }
+
+  .project-card-hover {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .project-card-hover:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-card-hover img {
+    transition: transform 0.3s ease;
+  }
+
+  .project-card-hover:hover img {
+    transform: scale(1.02);
   }
 `;
 
-const ProjectCard = (props) => {
+const ProjectCard = ({ project }) => {
   const theme = useContext(ThemeContext);
   const parseBodyText = (text) => <ReactMarkdown>{text}</ReactMarkdown>;
 
-  const { project } = props;
-
   return (
     <>
-      <style>{globalStyles}</style> {/* Injecting global styles for scrollbars */}
+      <style>{globalStyles}</style>
+
       <Col className="d-flex">
         <Card
-          className="flex-fill d-flex flex-column project-card"
+          className="flex-fill d-flex flex-column project-card project-card-hover"
           style={{
             ...styles.cardStyle,
             backgroundColor: theme.cardBackground,
@@ -140,4 +151,3 @@ ProjectCard.propTypes = {
 };
 
 export default ProjectCard;
-

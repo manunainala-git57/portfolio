@@ -1,10 +1,10 @@
-// MainApp.jsx
 import React, { useState, useEffect, Suspense } from 'react';
+import AOS from 'aos'; // Import AOS
+import 'aos/dist/aos.css'; // Import AOS styles
 import FallbackSpinner from './components/FallbackSpinner';
 import NavBarWithRouter from './components/NavBar';
-import Home from './components/Home';
 import endpoints from './constants/endpoints';
-import './App.css'; // Make sure this exists and includes new styles
+import './App.css';
 
 function MainApp() {
   const [data, setData] = useState(null);
@@ -14,6 +14,11 @@ function MainApp() {
       .then((res) => res.json())
       .then((res) => setData(res))
       .catch((err) => console.error('Error fetching routes:', err));
+    
+    AOS.init({
+      duration: 1000,
+      once: true,
+    }); // Initialize AOS
   }, []);
 
   return (
@@ -21,7 +26,6 @@ function MainApp() {
       <NavBarWithRouter />
       <main className="main">
         <Suspense fallback={<FallbackSpinner />}>
-          
           {data?.sections?.map((route) => {
             if (!route.component || !route.path) return null;
 
@@ -34,6 +38,7 @@ function MainApp() {
                 id={route.path.replace('/', '')}
                 className="section"
                 key={route.headerTitle}
+                data-aos="fade-up" //  Add animation here
               >
                 <SectionComponent header={route.headerTitle} />
               </section>
